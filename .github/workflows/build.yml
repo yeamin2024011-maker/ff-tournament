@@ -28,7 +28,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Web
-        run: flutter build web --release
+       run: flutter create --project-name=ff_tournament --platforms=android,web .
 
       - name: Build APK
         run: flutter build apk --release
