@@ -1,10 +1,10 @@
 name: FF Tournament Build
 
 "on":
+  workflow_dispatch:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -12,33 +12,32 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout source
+      - name: Checkout project
         uses: actions/checkout@v4
 
-      - name: Set up Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      - name: Generate platforms
+      - name: Configure Android and Web
         run: flutter create --project-name=ff_tournament --platforms=android,web .
 
-            - name: Get packages
-        run: flutter pub get
+      - name: Install dependencies
         run: flutter pub get
 
-      - name: Build Web
-       run: flutter create --project-name=ff_tournament --platforms=android,web .
-
-            - name: Build Web
+      - name: Build Web App
         run: flutter build web --release
+
+      - name: Build Android APK
         run: flutter build apk --release
 
-      - name: Upload builds
+      - name: Save build files
         uses: actions/upload-artifact@v4
         with:
           name: ff-tournament-builds
-                      build/app/outputs/flutter-apk/app-release.apk
+          path: |
             build/web/
-            build/app/outputs/flutter-apk/app-release.apkbasic workflow to help you get started with Actions
+            build/app/outputs/flutter-apk/app-release.apk
