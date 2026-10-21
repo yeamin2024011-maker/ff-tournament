@@ -22,7 +22,7 @@ jobs:
           channel: stable
 
       - name: Generate platforms
-        run: flutter create --platforms=android,web .
+        run: flutter create --project-name=ff_tournament --platforms=android,web .
 
       - name: Get packages
         run: flutter pub get
