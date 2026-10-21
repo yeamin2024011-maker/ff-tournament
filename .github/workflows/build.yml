@@ -24,19 +24,21 @@ jobs:
       - name: Generate platforms
         run: flutter create --project-name=ff_tournament --platforms=android,web .
 
-      - name: Get packages
+            - name: Get packages
+        run: flutter pub get
         run: flutter pub get
 
       - name: Build Web
        run: flutter create --project-name=ff_tournament --platforms=android,web .
 
-      - name: Build APK
+            - name: Build Web
+        run: flutter build web --release
         run: flutter build apk --release
 
       - name: Upload builds
         uses: actions/upload-artifact@v4
         with:
           name: ff-tournament-builds
-          path: |
+                      build/app/outputs/flutter-apk/app-release.apk
             build/web/
             build/app/outputs/flutter-apk/app-release.apkbasic workflow to help you get started with Actions
